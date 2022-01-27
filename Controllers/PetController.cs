@@ -39,10 +39,29 @@ public class PetController: ControllerBase {
     public IActionResult Create(Pet pet)
     {
         PetService.Add(pet);
+        //action name, used for create a hhtp response header with a url to the new pet
         return CreatedAtAction(nameof(Create), new {id = pet.Id }, pet);
 
     }
 
+    //updates an existing pet
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Pet pet)
+    {
+        if (id != pet.Id)
+        return BadRequest();
+
+        //validates if pet exists
+        var petExists = PetService.Get(id);
+        if(petExists is null)
+            return NotFound();
+
+        PetService.Update(pet);           
+
+        return NoContent();
+    }
+
+   
 
    
 
