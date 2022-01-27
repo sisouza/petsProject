@@ -61,6 +61,21 @@ public class PetController: ControllerBase {
         return NoContent();
     }
 
+     //delete a pet
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var pet = PetService.Get(id);
+
+        if (pet is null)
+            return NotFound();
+
+        PetService.Delete(id);
+
+        return NoContent();
+    }
+
    
 
    
