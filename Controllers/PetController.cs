@@ -32,6 +32,18 @@ public class PetController: ControllerBase {
 
          return pet;
     }    
+
+
+    //create a pet object
+    [HttpPost]
+    public IActionResult Create(Pet pet)
+    {
+        PetService.Add(pet);
+        return CreatedAtAction(nameof(Create), new {id = pet.Id }, pet);
+
+    }
+
+
    
 
 }
